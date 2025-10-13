@@ -15,7 +15,6 @@ function View() {
                        </div>
 
                         <div className=' mt-5'>
-                            
                             <Link to={'/'}><button className='float-right px-3 py-2 text-white bg-stone-500 hover:bg-stone-700 hover:cursor-pointer'>Close</button></Link>
                         </div>
                     </div>

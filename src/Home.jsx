@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { deletelistdataAPI, getlistdataAPI } from './service/allApi'
 
 function Home() {
+    const [getdetails, setGetdetails] = useState([])
+    const [deletestatus, setDeletestatus] = useState([])
+
+    const getDetails = async () => {
+        const result = await getlistdataAPI()
+        setGetdetails(result.data)
+    }
+    console.log(getdetails);
+
+    const handleDelete = async (id) => {
+        const result = await deletelistdataAPI(id)
+        if (result.status >= 200 && result.status < 300) {
+            setDeletestatus(result)
+        } else {
+            alert(`Something Went Wrong`)
+        }
+
+    }
+
+
+    useEffect(() => {
+        getDetails()
+    }, [deletestatus])
     return (
         <>
             <div className='min-h-screen '>
@@ -20,17 +44,17 @@ function Home() {
                         </thead>
 
                         <tbody className='text-center'>
-                            <tr>
-                                <td>1</td>
-                                <td>asadsd</td>
-                                <td>7348734853</td>
-                                <td>jaskjd@gmail.com</td>
+                            {getdetails?.map((item, index) => (<tr>
+                                <td>{index + 1}</td>
+                                <td>{item?.name}</td>
+                                <td>{item?.phone}</td>
+                                <td>{item?.email}</td>
                                 <td className='flex justify-around py-2'>
                                     <Link to={'/view'}> <button className='px-2 py-1 text-lime-50 bg-blue-500 hover:bg-blue-700 hover:cursor-pointer'>View</button></Link>
                                     <Link to={'/edit'}><button className='px-2 py-1 text-lime-50 bg-violet-500 hover:bg-violet-700 hover:cursor-pointer'>Edit</button></Link>
-                                    <button className='px-2 py-1 text-lime-50 bg-red-500 hover:bg-red-700 hover:cursor-pointer'>Delete</button>
+                                    <button onClick={() => handleDelete(item?.id)} className='px-2 py-1 text-lime-50 bg-red-500 hover:bg-red-700 hover:cursor-pointer'>Delete</button>
                                 </td>
-                            </tr>
+                            </tr>))}
                         </tbody>
                     </table>
                 </div>
