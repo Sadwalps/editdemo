@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { deletelistdataAPI, getlistdataAPI } from './service/allApi'
+import View from './View'
 
 function Home() {
     const [getdetails, setGetdetails] = useState([])
     const [deletestatus, setDeletestatus] = useState([])
+
+   
 
     const getDetails = async () => {
         const result = await getlistdataAPI()
@@ -49,9 +52,9 @@ function Home() {
                                 <td>{item?.name}</td>
                                 <td>{item?.phone}</td>
                                 <td>{item?.email}</td>
-                                <td className='flex justify-around py-2'>
-                                    <Link to={'/view'}> <button className='px-2 py-1 text-lime-50 bg-blue-500 hover:bg-blue-700 hover:cursor-pointer'>View</button></Link>
-                                    <Link to={'/edit'}><button className='px-2 py-1 text-lime-50 bg-violet-500 hover:bg-violet-700 hover:cursor-pointer'>Edit</button></Link>
+                                <td className='flex justify-around py-2' >
+                                    <View details={item}/>
+                                  <Link><button  className='px-2 py-1 text-lime-50 bg-violet-500 hover:bg-violet-700 hover:cursor-pointer'>Edit</button></Link>  
                                     <button onClick={() => handleDelete(item?.id)} className='px-2 py-1 text-lime-50 bg-red-500 hover:bg-red-700 hover:cursor-pointer'>Delete</button>
                                 </td>
                             </tr>))}
