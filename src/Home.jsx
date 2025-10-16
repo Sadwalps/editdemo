@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
 import { deletelistdataAPI, getlistdataAPI } from './service/allApi'
 import View from './View'
+import Edit from './Edit'
 
 function Home() {
     const [getdetails, setGetdetails] = useState([])
     const [deletestatus, setDeletestatus] = useState([])
+    const [editstatus, setEditstatus] = useState("")
 
    
 
@@ -28,7 +30,7 @@ function Home() {
 
     useEffect(() => {
         getDetails()
-    }, [deletestatus])
+    }, [deletestatus,editstatus])
     return (
         <>
             <div className='min-h-screen '>
@@ -54,7 +56,7 @@ function Home() {
                                 <td>{item?.email}</td>
                                 <td className='flex justify-around py-2' >
                                     <View details={item}/>
-                                  <Link><button  className='px-2 py-1 text-lime-50 bg-violet-500 hover:bg-violet-700 hover:cursor-pointer'>Edit</button></Link>  
+                                  <Edit details={item} setEditstatus={setEditstatus} />
                                     <button onClick={() => handleDelete(item?.id)} className='px-2 py-1 text-lime-50 bg-red-500 hover:bg-red-700 hover:cursor-pointer'>Delete</button>
                                 </td>
                             </tr>))}

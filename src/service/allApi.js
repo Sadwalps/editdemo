@@ -12,3 +12,7 @@ export const getlistdataAPI = async()=>{
 export const deletelistdataAPI = async(id)=>{
     return await commonAPI(`DELETE`, `${serverURL}/listdata/${id}`,{})
 }
+
+export const editlistdataAPI = async(id,data)=>{
+    return await commonAPI(`PUT`, `${serverURL}/listdata/${id}`,data)
+}
