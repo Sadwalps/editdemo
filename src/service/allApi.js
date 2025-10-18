@@ -16,3 +16,12 @@ export const deletelistdataAPI = async(id)=>{
 export const editlistdataAPI = async(id,data)=>{
     return await commonAPI(`PUT`, `${serverURL}/listdata/${id}`,data)
 }
+
+export const addselectdataAPI = async(reqbody)=>{
+    return await commonAPI(`POST`, `${serverURL}/selectedlist`,reqbody)
+}
+
+export const getselectlistdataAPI = async()=>{
+    return await commonAPI(`GET`, `${serverURL}/selectedlist`,"")
+}
+

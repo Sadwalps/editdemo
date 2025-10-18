@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { deletelistdataAPI, getlistdataAPI } from './service/allApi'
 import View from './View'
 import Edit from './Edit'
+import Likeddetail from './Likeddetail'
 
 function Home() {
     const [getdetails, setGetdetails] = useState([])
     const [deletestatus, setDeletestatus] = useState([])
     const [editstatus, setEditstatus] = useState("")
 
-   
+
 
     const getDetails = async () => {
         const result = await getlistdataAPI()
@@ -30,7 +31,7 @@ function Home() {
 
     useEffect(() => {
         getDetails()
-    }, [deletestatus,editstatus])
+    }, [deletestatus, editstatus])
     return (
         <>
             <div className='min-h-screen '>
@@ -42,8 +43,9 @@ function Home() {
                                 <td>Name</td>
                                 <td>Phone Number</td>
                                 <td>Email</td>
-                                <td className='flex justify-center items-center py-2'>
+                                <td className='flex justify-center items-center py-2 gap-2'>
                                     <Link to={'/add'}> <button className='px-3 py-1 text-lime-50 bg-green-500 hover:bg-green-700 hover:cursor-pointer'>Add +</button></Link>
+                                     <Link to={'/add'}> <button className='px-3 py-1 text-lime-50 bg-green-500 hover:bg-green-700 hover:cursor-pointer'>Add +</button></Link>
                                 </td>
                             </tr>
                         </thead>
@@ -55,8 +57,9 @@ function Home() {
                                 <td>{item?.phone}</td>
                                 <td>{item?.email}</td>
                                 <td className='flex justify-around py-2' >
-                                    <View details={item}/>
-                                  <Edit details={item} setEditstatus={setEditstatus} />
+                                    <View details={item} />
+                                    <Edit details={item} setEditstatus={setEditstatus} />
+                                    <Likeddetail details={item}/>
                                     <button onClick={() => handleDelete(item?.id)} className='px-2 py-1 text-lime-50 bg-red-500 hover:bg-red-700 hover:cursor-pointer'>Delete</button>
                                 </td>
                             </tr>))}
